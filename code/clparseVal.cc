@@ -40,7 +40,7 @@ void reportParseError(const Symbol& S, const int& N)
 #ifdef __cplusplus
 	   }
 #endif
-/*int clparseVal(Symbol *S, int *Which, string& val)
+int clparseVal(Symbol *S, int *Which, string& val)
 {
   unsigned int N = _ABS(*Which);
   
@@ -57,38 +57,8 @@ void reportParseError(const Symbol& S, const int& N)
   else
     return CL_FAIL;
 
-}*/
-
-
-int clparseVal(Symbol *S, int *Which, string& val)
-{
-  unsigned int N = _ABS(*Which);
-
-  if (S != NULL)
-  {
-    if (N <= S->NVals)
-    {
-      // Split on comma into vector of tokens
-      std::vector<std::string> tokens;
-      std::istringstream iss(S->Val[N - 1]);
-      std::string token;
-      
-      while (std::getline(iss, token, ',')) {
-        tokens.push_back(trim(token));
-      }
-
-      // Use Which as 1-based index into split tokens
-      if (*Which <= 0 || *Which > (int)tokens.size()) {
-        return CL_FAIL;
-      }
-
-      val = tokens[*Which - 1];
-      return val.size();
-    }
-    else return CL_FAIL;
-  }
-  else return CL_FAIL;
 }
+
 
 int clparseVal(Symbol *S, int *Which, double *d)
 {
@@ -113,6 +83,4 @@ HANDLE_EXCEPTIONS(
     }
   else return CL_FAIL;
 )
-
-
 }
